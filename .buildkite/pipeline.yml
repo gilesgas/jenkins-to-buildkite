@@ -1,0 +1,11 @@
+steps:
+
+  - label: ":jenkins: Build the Jenkins version"
+    command: .buildkite/jenkins.sh
+
+  - label: ":buildkite: Build the Buildkite version"
+    command: .buildkite/buildkite.sh
+    plugins:
+      - docker:
+          image: "node:20.x"
+      
