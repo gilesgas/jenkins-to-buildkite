@@ -43,10 +43,5 @@ services:
     depends_on:
       - jenkins
 
-  buildkite-agent1:
-    build: 
-      context: .
-      dockerfile: Dockerfile.buildkite.agent
-    command: ["start", "--token", "${BUILDKITE_AGENT_TOKEN}"]
 
 

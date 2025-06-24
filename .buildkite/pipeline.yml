@@ -7,5 +7,5 @@ steps:
     command: .buildkite/buildkite.sh
     plugins:
       - docker:
-          image: "node:20.x"
+          image: "node:20"
       
