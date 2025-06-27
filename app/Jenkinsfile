@@ -1,6 +1,9 @@
 // Things to cover:
-// - Plugin usage
-//   - Git/Check
+// - Plugin usage:
+//   - Git/Checkout (built into Buildkite)
+//   - No need (built into Buildkite)
+//   - Node.js (no Buildkite equivalent -- up to you)
+//   - HTML Publisher (no Buildkite equivalent, but annotations)
 // - Matrix builds
 // - Step execution
 // - Parallel steps
