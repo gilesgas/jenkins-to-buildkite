@@ -29,10 +29,22 @@ pipeline {
                             }
                         }
                     }
+
                     stage('Test') {
-                        steps {
-                            dir('app') {
-                                sh 'npm test'
+                        parallel {
+                            stage('Lint') {
+                                steps {
+                                    dir('app') {
+                                        sh 'npm run lint'
+                                    }
+                                }
+                            }
+                            stage('Unit Tests') {
+                                steps {
+                                    dir('app') {
+                                        sh 'npm run test:unit'
+                                    }
+                                }
                             }
                         }
                     }
