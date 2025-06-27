@@ -1,3 +1,11 @@
+// Things to cover:
+// - Plugin usage
+//   - Git/Check
+// - Matrix builds
+// - Step execution
+// - Parallel steps
+// - Artifacts (
+
 pipeline {
     agent none
 
@@ -47,6 +55,19 @@ pipeline {
                                 )
                             }
                         }
+                    }
+                }
+
+                post {
+                    always {
+                        publishHTML(target: [
+                            reportDir: 'app/coverage',
+                            reportFiles: 'index.html',
+                            reportName: "Code Coverage (${NODE_VERSION})",
+                            allowMissing: true,
+                            alwaysLinkToLastBuild: true,
+                            keepAll: false
+                        ])
                     }
                 }
             }

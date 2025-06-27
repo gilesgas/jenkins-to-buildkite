@@ -1,6 +1,7 @@
 ansicolor
 configuration-as-code
 github-branch-source
+htmlpublisher
 job-dsl
 nodejs
 role-strategy
