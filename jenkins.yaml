@@ -41,6 +41,12 @@ jenkins:
 tool:
   nodejs:
     installations:
+      - name: Node 20.x
+        properties:
+          - installSource:
+              installers:
+                - nodeJSInstaller:
+                    id: 20.19.0
       - name: Node 22.x
         properties:
           - installSource:
