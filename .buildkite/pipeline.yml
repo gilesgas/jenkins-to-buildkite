@@ -1,42 +1,22 @@
+agents:
+  queue: "hosted-linux"
 steps:
   - label: ":nodejs: Node.js {{matrix.node_version}} build"
-    command: |
-      # Install dependencies
+    commands: |
+
+      # Install Node.js
+      # Do some stuff....
+
       cd app
-      npm install
-      
-      # Run lint and tests in parallel
-      npm run lint &
-      LINT_PID=$$!
-      
-      npm run test:unit &
-      TEST_PID=$$!
-      
-      # Wait for both processes to complete
-      wait $$LINT_PID
-      LINT_EXIT=$$?
-      
-      wait $$TEST_PID
-      TEST_EXIT=$$?
-      
-      # Exit with error if either failed
-      if [ $$LINT_EXIT -ne 0 ] || [ $$TEST_EXIT -ne 0 ]; then
-        exit 1
-      fi
-    
+      npm ci
+      npm run lint
+      npm run test:unit
+      npm run build
     matrix:
       setup:
         node_version:
-          - "20.x"
-          - "22.x"
-    
-    plugins:
-      - nodejs#v3.1.0:
-          version: "{{matrix.node_version}}"
+          - 20.x
+          - 22.x
     
     artifact_paths:
-      - "app/coverage/**/*"
-    
-    # env:
-    #   TERM: xterm-256color
-    #   FORCE_COLOR: 1
+      - app/coverage/**/*
