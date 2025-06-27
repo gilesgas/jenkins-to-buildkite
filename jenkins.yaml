@@ -46,7 +46,9 @@ tool:
           - installSource:
               installers:
                 - nodeJSInstaller:
-                    id: 22.16.0
+                    id: 22.17.0
+                - nodeJSInstaller:
+                    id: 20.19.0
 
 jobs:
   - script: |
