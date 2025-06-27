@@ -50,13 +50,13 @@ tool:
 
 jobs:
   - script: |
-      multibranchPipelineJob('jenkins-jcasc-example') {
+      multibranchPipelineJob('jenkins-to-buildkite') {
           branchSources {
               github {
-                  id('jenkins-jcasc-example')
-                  repoOwner('cnunciato')
-                  repository('jenkins-jcasc-example')
+                  id('jenkins-to-buildkite')
                   scanCredentialsId('github-pat')
+                  repoOwner('cnunciato')
+                  repository('jenkijenkins-to-buildkitele')
               }
           }
           factory {
