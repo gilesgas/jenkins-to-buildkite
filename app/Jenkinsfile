@@ -1,26 +1,41 @@
 pipeline {
-    agent any
-
-    tools {
-        nodejs "Node 22.x"
-    }
+    agent none
 
     options {
         ansiColor('xterm')
     }
 
     stages {
-        stage('Install') {
-            steps {
-                dir('app') {
-                    sh 'npm install'
+        stage('Matrix Build') {
+            matrix {
+                axes {
+                    axis {
+                        name 'NODE_VERSION'
+                        values 'Node 18.x', 'Node 22.x'
+                    }
                 }
-            }
-        }
-        stage('Test') {
-            steps {
-                dir('app') {
-                    sh 'npm test'
+
+                agent any
+
+                tools {
+                    nodejs "${NODE_VERSION}"
+                }
+
+                stages {
+                    stage('Install') {
+                        steps {
+                            dir('app') {
+                                sh 'npm install'
+                            }
+                        }
+                    }
+                    stage('Test') {
+                        steps {
+                            dir('app') {
+                                sh 'npm test'
+                            }
+                        }
+                    }
                 }
             }
         }
