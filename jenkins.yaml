@@ -56,7 +56,7 @@ jobs:
                   id('jenkins-to-buildkite')
                   scanCredentialsId('github-pat')
                   repoOwner('cnunciato')
-                  repository('jenkijenkins-to-buildkitele')
+                  repository('jenkins-to-buildkite')
               }
           }
           factory {
