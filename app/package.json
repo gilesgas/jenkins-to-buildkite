@@ -1,16 +1,17 @@
 {
-  "name": "jenkins-to-buildkite",
+  "name": "jenkins-to-buildkite-app",
   "version": "0.1.0",
   "type": "module",
   "main": "index.js",
-  "dependencies": {
-    "@vitest/coverage-v8": "^3.2.4",
-    "vitest": "^3.1.3"
-  },
   "scripts": {
-    "lint": "echo 'Sweet, no issues!'",
+    "lint": "echo 'Everything is :tada:'",
     "test:unit": "vitest run --coverage.enabled --coverage.reporter=html",
     "test:integration": "vitest run",
-    "build": "echo 'Build completed successfully!'"
+    "build": "echo 'Everything is :tada:'"
+  },
+  "devDependencies": {
+    "buildkite-test-collector": "^1.9.0",
+    "@vitest/coverage-v8": "^3.2.4",
+    "vitest": "^3.1.3"
   }
 }
