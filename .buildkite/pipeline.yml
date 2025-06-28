@@ -19,4 +19,4 @@ steps:
           - 22.x
     
     artifact_paths:
-      - app/coverage/**/* # You could of course do this... (or tar it up first)
+      - app/coverage/**/* # You could of course do this (or tar it up first) -- or you could just use Test Engine! ^^
