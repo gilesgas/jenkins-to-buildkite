@@ -11,6 +11,7 @@ steps:
       export PATH="$$HOME/.local/bin/mise/shims:$PATH"
       mise install node@{{matrix.node_version}}
       mise use --global node@{{matrix.node_version}}
+      mise bin-paths
       which node
       node -v
       npm -v
