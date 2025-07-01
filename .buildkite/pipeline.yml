@@ -13,7 +13,7 @@ steps:
       cd app
       npm ci
       npm run lint
-      npm run test:unit
+      npm run test
       npm run build
       
     matrix:
@@ -23,4 +23,4 @@ steps:
           - 22.x
     
     artifact_paths:
-      - app/coverage/**/* # You could of course do this (or tar it up first) -- or you could just use Test Engine! ^^
+      - app/coverage/**/* 

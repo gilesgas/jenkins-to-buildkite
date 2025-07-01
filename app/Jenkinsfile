@@ -80,18 +80,7 @@ pipeline {
                 // Run a post-install step that saves an artifact.
                 post {
                     always {
-
                         archiveArtifacts artifacts: 'app/coverage/**/*'
-
-                        // Upload the test results.
-                        // publishHTML(target: [
-                        //     reportDir: 'app/coverage',
-                        //     reportFiles: 'index.html',
-                        //     reportName: "Code coverage (${NODE_VERSION})",
-                        //     allowMissing: true,
-                        //     alwaysLinkToLastBuild: true,
-                        //     keepAll: false
-                        // ])
                     }
                 }
             }
