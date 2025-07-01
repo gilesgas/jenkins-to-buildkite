@@ -5,13 +5,13 @@ steps:
     commands: |
       export BUILDKITE_ANALYTICS_TOKEN="$$(buildkite-agent secret get TEST_ENGINE_TEST_SUITE_JENKINS_TO_BUILDKITE)"
       
-      # Install and use the target version of Node.js.
-      # curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
-      # nvm use {{matrix.node_version}}
+      echo "--- Install Mise and Node {{matrix.node_version}}"
       curl https://mise.run | sh
       export PATH="$HOME/.local/bin:$PATH"
       mise install node@{{matrix.node_version}}
       mise use node@{{matrix.node_version}}
+      node -v
+      npm -v
 
       cd app
       npm ci
