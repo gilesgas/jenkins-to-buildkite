@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module">
+        import { countTheRs } from "./index.js";
+
+        addEventListener("DOMContentLoaded", () => {
+            const s = "strawberry";
+            document.querySelector("#result").textContent = `There are ${countTheRs(s)} "r"s in "${s}".`;
+        });
+    </script>
+</head>
+<body>
+    <h1>Proof I'm not a robot</h1>
+    <div id="result"></div>
+</body>
+</html>

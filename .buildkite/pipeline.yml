@@ -3,15 +3,19 @@ agents:
 steps:
   - label: ":nodejs: Node.js {{matrix.node_version}} build"
     commands: |
+
+
       export BUILDKITE_ANALYTICS_TOKEN="$$(buildkite-agent secret get TEST_ENGINE_TEST_SUITE_JENKINS_TO_BUILDKITE)"
+      
       # Install Node.js
-      # Do some stuff....
+      
 
       cd app
       npm ci
       npm run lint
       npm run test:unit
       npm run build
+      
     matrix:
       setup:
         node_version:

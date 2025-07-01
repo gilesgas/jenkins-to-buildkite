@@ -1,23 +1,17 @@
-// Things to cover:
-// - Plugin usage:
-//   - Git/Checkout (built into Buildkite)
-//   - No need (built into Buildkite)
-//   - Node.js (no Buildkite equivalent -- up to you)
-//   - HTML Publisher (no Buildkite equivalent, but annotations)
-// - Matrix builds
-// - Step execution
-// - Parallel steps
-// - Artifacts (
+// https://chatgpt.com/c/68600485-24bc-8012-b755-348f6c0eb562
 
 pipeline {
     agent none
 
+    // Colorize build output.
     options {
         ansiColor('xterm')
     }
 
     stages {
         stage('Matrix Build') {
+
+            // Test against multiple Node.js versions.
             matrix {
                 axes {
                     axis {
@@ -33,6 +27,8 @@ pipeline {
                 }
 
                 stages {
+
+                    // 1. Install dependencies.
                     stage('Install') {
                         steps {
                             dir('app') {
@@ -41,21 +37,34 @@ pipeline {
                         }
                     }
 
+                    // 2. Run the tests.
                     stage('Test') {
                         steps {
                             script {
+
+                                // Run the linter and unit tests in parallel.
                                 parallel(
                                     "Lint": {
                                         dir('app') {
                                             sh 'npm run lint'
                                         }
                                     },
+                                    
                                     "Unit Tests": {
                                         dir('app') {
-                                            sh 'npm run test:unit'
+                                            sh 'npm test'
                                         }
                                     }
                                 )
+                            }
+                        }
+                    }
+
+                    // 3. Run a build.
+                    stage('Build') {
+                        steps {
+                            dir('app') {
+                                sh 'npm run build'
                             }
                         }
                     }
@@ -63,10 +72,12 @@ pipeline {
 
                 post {
                     always {
+
+                        // Upload the test results.
                         publishHTML(target: [
                             reportDir: 'app/coverage',
                             reportFiles: 'index.html',
-                            reportName: "Code Coverage (${NODE_VERSION})",
+                            reportName: "Code coverage (${NODE_VERSION})",
                             allowMissing: true,
                             alwaysLinkToLastBuild: true,
                             keepAll: false

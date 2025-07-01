@@ -5,11 +5,11 @@ export default defineConfig({
         
         // Send results to Test Engine.
         reporters: [
-            'default',
-            'buildkite-test-collector/vitest/reporter'
+            "default",
+            "buildkite-test-collector/vitest/reporter",
         ],
 
         // Enable column + line capture for Test Engine
         includeTaskLocation: true,
-    }
-})
+    },
+});
