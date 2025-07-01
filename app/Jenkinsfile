@@ -3,7 +3,7 @@
 pipeline {
     agent none
 
-    // Colorize build output.
+    // Colorize build output with the Ansicolor plugin.
     options {
         ansiColor('xterm')
     }
@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Matrix Build') {
 
-            // Test against multiple Node.js versions.
+            // Test against multiple Node.js versions with matrix builds.
             matrix {
                 axes {
                     axis {
@@ -20,12 +20,15 @@ pipeline {
                     }
                 }
 
-                agent any
+                agent {
+                    label "nodejs"
+                }
 
                 tools {
                     nodejs "${NODE_VERSION}"
                 }
 
+                // Run stages sequentially.
                 stages {
 
                     // 1. Install dependencies.
@@ -37,19 +40,22 @@ pipeline {
                         }
                     }
 
-                    // 2. Run the tests.
+                    // 2. Run pre-build checks.
                     stage('Test') {
                         steps {
                             script {
 
-                                // Run the linter and unit tests in parallel.
+                                // Run linting and tests in parallel.
                                 parallel(
+
+                                    // Lints.
                                     "Lint": {
                                         dir('app') {
                                             sh 'npm run lint'
                                         }
                                     },
                                     
+                                    // Tests.
                                     "Unit Tests": {
                                         dir('app') {
                                             sh 'npm test'
@@ -70,6 +76,7 @@ pipeline {
                     }
                 }
 
+                // Run a post-install step that saves an artifact.
                 post {
                     always {
 
