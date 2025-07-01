@@ -9,7 +9,7 @@ steps:
       # curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
       # nvm use {{matrix.node_version}}
       curl https://mise.run | sh
-      export PATH="$HOME/.local/share/mise/bin:$PATH"
+      export PATH="$HOME/.local/bin:$PATH"
       mise install node@{{matrix.node_version}}
       mise use node@{{matrix.node_version}}
 
