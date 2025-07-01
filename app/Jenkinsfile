@@ -20,10 +20,11 @@ pipeline {
                     }
                 }
 
+                // Target a specific agent.
                 agent {
                     label "${NODE_VERSION}"
                 }
-
+        
                 tools {
                     nodejs "${NODE_VERSION}"
                 }
@@ -45,7 +46,7 @@ pipeline {
                         steps {
                             script {
 
-                                // Run linting and tests in parallel.
+                                // Run linting and test steps in parallel.
                                 parallel(
 
                                     // Lints.
@@ -80,15 +81,17 @@ pipeline {
                 post {
                     always {
 
+                        archiveArtifacts artifacts: 'app/coverage/**/*'
+
                         // Upload the test results.
-                        publishHTML(target: [
-                            reportDir: 'app/coverage',
-                            reportFiles: 'index.html',
-                            reportName: "Code coverage (${NODE_VERSION})",
-                            allowMissing: true,
-                            alwaysLinkToLastBuild: true,
-                            keepAll: false
-                        ])
+                        // publishHTML(target: [
+                        //     reportDir: 'app/coverage',
+                        //     reportFiles: 'index.html',
+                        //     reportName: "Code coverage (${NODE_VERSION})",
+                        //     allowMissing: true,
+                        //     alwaysLinkToLastBuild: true,
+                        //     keepAll: false
+                        // ])
                     }
                 }
             }

@@ -34,10 +34,12 @@ jenkins:
         name: agent1
         launcher: inbound
         remoteFS: /home/jenkins/agent
+        labelString: "'Node 20.x'"
     - permanent:
         name: agent2
         launcher: inbound
         remoteFS: /home/jenkins/agent
+        labelString: "'Node 22.x'"
 tool:
   nodejs:
     installations:
