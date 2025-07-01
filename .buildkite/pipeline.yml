@@ -9,7 +9,7 @@ steps:
       curl https://mise.run | sh
       export PATH="$$HOME/.local/bin:$PATH"
       mise install node@{{matrix.node_version}}
-      mise use --global node@{{matrix.node_version}}
+      mise shell node@{{matrix.node_version}}
       mise bin-paths
       which node
       node -v
