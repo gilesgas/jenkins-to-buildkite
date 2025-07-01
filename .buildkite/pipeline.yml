@@ -3,13 +3,12 @@ agents:
 steps:
   - label: ":nodejs: Node.js {{matrix.node_version}} build"
     commands: |
-
-
       export BUILDKITE_ANALYTICS_TOKEN="$$(buildkite-agent secret get TEST_ENGINE_TEST_SUITE_JENKINS_TO_BUILDKITE)"
       
-      # Install Node.js
-      
-
+      # Install and use the target version of Node.js.
+      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+      nvm use {{matrix.node_version}}
+    
       cd app
       npm ci
       npm run lint
@@ -19,8 +18,8 @@ steps:
     matrix:
       setup:
         node_version:
-          - 20.x
-          - 22.x
+          - 20
+          - 22
     
     artifact_paths:
       - app/coverage/**/* 
