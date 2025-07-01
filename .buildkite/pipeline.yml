@@ -6,13 +6,9 @@ steps:
       export BUILDKITE_ANALYTICS_TOKEN="$$(buildkite-agent secret get TEST_ENGINE_TEST_SUITE_JENKINS_TO_BUILDKITE)"
       
       echo "--- Install Mise and Node {{matrix.node_version}}"
-      curl https://mise.run | sh
-      export PATH="$$HOME/.local/bin:$PATH"
-      mise install node@{{matrix.node_version}}
-      mise shell node@{{matrix.node_version}}
-      mise activate
-      mise bin-paths
-      which node
+      curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | sudo -E bash -
+      sudo apt install nodejs
+      
       node -v
       npm -v
 
