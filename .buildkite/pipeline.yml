@@ -8,9 +8,9 @@ steps:
       echo "--- Install Mise and Node {{matrix.node_version}}"
       curl https://mise.run | sh
       export PATH="$$HOME/.local/bin:$PATH"
+      export PATH="$$HOME/.local/bin/mise/shims:$PATH"
       mise install node@{{matrix.node_version}}
       mise use --global node@{{matrix.node_version}}
-      mise reshim
       which node
       node -v
       npm -v
