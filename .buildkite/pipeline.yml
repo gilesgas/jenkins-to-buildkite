@@ -5,9 +5,13 @@ steps:
     commands: |
       export BUILDKITE_ANALYTICS_TOKEN="$$(buildkite-agent secret get TEST_ENGINE_TEST_SUITE_JENKINS_TO_BUILDKITE)"
       
-      echo "--- Install Mise and Node {{matrix.node_version}}"
-      curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | sudo -E bash -
-      sudo apt install nodejs
+      echo "--- Install Node.js {{matrix.node_version}}"
+      # curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | sudo -E bash -
+      # sudo apt install nodejs
+
+      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+      source ~/.bashrc
+      nvm install v{{matrix.node_version}}
       
       node -v
       npm -v
