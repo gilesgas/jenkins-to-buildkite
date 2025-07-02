@@ -20,7 +20,6 @@ steps:
       export MISE_INSTALL_PATH="/usr/local/bin/mise"
       export PATH="/mise/shims:$$PATH"
 
-      export MISE_INSTALL_DIR="$$HOME/"
       curl https://mise.run | sh
       mise install node@{{matrix.node_version}}
       
