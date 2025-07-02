@@ -14,6 +14,13 @@ steps:
       # source "$$NVM_DIR/nvm.sh"
       # nvm install v{{matrix.node_version}}
 
+      export MISE_DATA_DIR="/mise"
+      export MISE_CONFIG_DIR="/mise"
+      export MISE_CACHE_DIR="/mise/cache"
+      export MISE_INSTALL_PATH="/usr/local/bin/mise"
+      export PATH="/mise/shims:$$PATH"
+
+      export MISE_INSTALL_DIR="$$HOME/"
       curl https://mise.run | sh
       mise install node@{{matrix.node_version}}
       
