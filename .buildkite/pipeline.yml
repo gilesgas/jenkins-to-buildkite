@@ -2,11 +2,16 @@ agents:
   queue: "hosted-linux"
 steps:
 
-  - label: "Lint"
+  - label: ":eslint: Lint"
     id: lint
     commands: |
-      curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | bash
-      sudo apt install nodejs
+      # curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | bash
+      # sudo apt install nodejs
+
+      export NVM_DIR="\$HOME/.nvm"
+      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+      source "\$NVM_DIR/nvm.sh"
+      nvm install v{{matrix.node_version}}
 
       cd app
       npm ci
@@ -18,11 +23,16 @@ steps:
           - 20
           - 22
 
-  - label: "Test"
+  - label: ":vitest: Test"
     id: test
     commands: |
-      curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | bash
-      sudo apt install nodejs
+      # curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | bash
+      # sudo apt install nodejs
+
+      export NVM_DIR="\$HOME/.nvm"
+      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+      source "\$NVM_DIR/nvm.sh"
+      nvm install v{{matrix.node_version}}
       
       cd app
       npm ci
@@ -34,7 +44,7 @@ steps:
           - 20
           - 22
 
-  - label: "Build"
+  - label: ":node: Build"
     id: build   # This is optional, as nothing references it.
 
     depends_on: 
@@ -42,8 +52,13 @@ steps:
       - test
 
     commands: |
-      curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | bash
-      sudo apt install nodejs
+      # curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | bash
+      # sudo apt install nodejs
+
+      export NVM_DIR="\$HOME/.nvm"
+      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+      source "\$NVM_DIR/nvm.sh"
+      nvm install v{{matrix.node_version}}
       
       cd app
       npm ci
