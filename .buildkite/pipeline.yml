@@ -2,62 +2,37 @@ agents:
   queue: "hosted-linux"
 
 common:
-  install-node: &install-node |
+  install: &install |
     curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | bash
     sudo apt install nodejs
-
-    # Or if you like...
-    # export NVM_DIR="\$HOME/.nvm"
-    # curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-    # source "\$NVM_DIR/nvm.sh"
-    # nvm install v{{matrix.node_version}}
-    # node -v && npm -v
-
+    cd app && npm ci
   matrix: &matrix
     setup:
       node_version:
         - 20
         - 22
-      node_source: 
-        - |
-          export NVM_DIR="\$HOME/.nvm"
-          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-          source "\$NVM_DIR/nvm.sh"
-          nvm install v{{matrix.node_version}}
-          node -v && npm -v
-        - |
-          curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | bash
-          sudo apt install nodejs
-
 
 steps:
-
   - id: lint
     label: ":eslint: Lint"
     matrix: *matrix
     commands:
-      - *install-node
-      - |
-        cd app && npm ci
-        npm run lint
+      - *install
+      - npm run lint
 
   - id: test
     label: ":vitest: Test"
     matrix: *matrix
     commands:
-      - *install-node
-      - |
-        cd app && npm ci
-        npm test
+      - *install
+      - npm test
 
   - id: build
     label: ":wrench: Build"
     matrix: *matrix
     commands:
-      - *install-node
-      - |
-        cd app && npm ci
-        npm run build
+      - *install
+      - npm run build
     depends_on: 
       - lint
       - test
