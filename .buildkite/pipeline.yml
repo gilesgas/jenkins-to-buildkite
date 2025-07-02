@@ -14,15 +14,15 @@ steps:
 
   - label: ":eslint: Lint"
     id: lint
-    commands: |
-      # curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | bash
-      # sudo apt install nodejs
+    commands:
+      - *install-node
+      - |
+        # curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | bash
+        # sudo apt install nodejs
 
-      *install-node
-
-      cd app
-      npm ci
-      npm run lint
+        cd app
+        npm ci
+        npm run lint
 
     matrix:
       setup:
