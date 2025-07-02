@@ -7,6 +7,8 @@ steps:
     commands: |
       curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | bash
       sudo apt install nodejs
+
+      cd app
       npm ci
       npm run lint
 
@@ -16,11 +18,13 @@ steps:
           - 20
           - 22
 
-  - label: "test"
+  - label: "Test"
     id: test
     commands: |
       curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | bash
       sudo apt install nodejs
+      
+      cd app
       npm ci
       npm test
 
@@ -40,6 +44,8 @@ steps:
     commands: |
       curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | bash
       sudo apt install nodejs
+      
+      cd app
       npm ci
       npm run lint
     
