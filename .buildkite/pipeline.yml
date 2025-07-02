@@ -12,6 +12,7 @@ steps:
       curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
       source "\$NVM_DIR/nvm.sh"
       nvm install v{{matrix.node_version}}
+      node -v && npm -v
 
       cd app
       npm ci
@@ -33,6 +34,7 @@ steps:
       curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
       source "\$NVM_DIR/nvm.sh"
       nvm install v{{matrix.node_version}}
+      node -v && npm -v
       
       cd app
       npm ci
@@ -59,6 +61,7 @@ steps:
       curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
       source "\$NVM_DIR/nvm.sh"
       nvm install v{{matrix.node_version}}
+      node -v && npm -v
       
       cd app
       npm ci
