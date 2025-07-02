@@ -7,7 +7,7 @@ steps:
       
       echo "--- Install Node.js {{matrix.node_version}}"
       node -v
-      
+
       # curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | sudo -E bash -
       # sudo apt install nodejs
 
@@ -23,7 +23,7 @@ steps:
       export PATH="/mise/shims:$$PATH"
 
       curl https://mise.run | sh
-      mise install node@{{matrix.node_version}}
+      mise install --global node@{{matrix.node_version}}
       node -v
       
       cd app
