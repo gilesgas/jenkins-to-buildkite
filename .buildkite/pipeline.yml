@@ -13,21 +13,21 @@ common:
         - 22
 
 steps:
-  - label: ":eslint: Lint"
+  - label: ":eslint: Lint (Node {{matrix.node_version}})"
     id: lint
     matrix: *matrix
     commands:
       - *install
       - npm run lint
 
-  - label: ":vitest: Test"
+  - label: ":vitest: Test (Node {{matrix.node_version}})"
     id: test
     matrix: *matrix
     commands:
       - *install
       - npm test
 
-  - label: ":wrench: Build"
+  - label: ":wrench: Build (Node {{matrix.node_version}})"
     matrix: *matrix
     commands:
       - *install
