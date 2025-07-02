@@ -20,35 +20,35 @@ common:
 
 steps:
 
-  - label: ":eslint: Lint"
-    id: lint
+  - id: lint
+    label: ":eslint: Lint"
     commands:
       - *install-node
       - |
         cd app && npm ci
         npm run lint
 
+  - id: test
+    label: ":vitest: Test"
     
-
-  - label: ":vitest: Test"
-    id: test
+    matrix: *matrix
     commands:
       - *install-node
+      - |
+        cd app && npm ci
+        npm test
 
+  - id: build
+    label: ":wrench: Build"
     matrix: *matrix
-
-  - label: ":wrench: Build"
-    id: build   # This is optional, as nothing references it.
-
+    commands:
+      - *install-node
+      - |
+        cd app && npm ci
+        npm run build
     depends_on: 
       - lint
       - test
 
-    commands:
-      - *install-node
-    
-    matrix: *matrix
-
-    
     artifact_paths:
       - app/coverage/**/* 
