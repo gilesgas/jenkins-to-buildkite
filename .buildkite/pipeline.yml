@@ -22,6 +22,7 @@ steps:
 
   - id: lint
     label: ":eslint: Lint"
+    matrix: *matrix
     commands:
       - *install-node
       - |
@@ -30,7 +31,6 @@ steps:
 
   - id: test
     label: ":vitest: Test"
-    
     matrix: *matrix
     commands:
       - *install-node
