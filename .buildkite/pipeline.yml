@@ -6,6 +6,7 @@ common:
     curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | bash
     sudo apt install nodejs
 
+    # Or if you like...
     # export NVM_DIR="\$HOME/.nvm"
     # curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
     # source "\$NVM_DIR/nvm.sh"
@@ -17,6 +18,17 @@ common:
       node_version:
         - 20
         - 22
+      node_source: 
+        - |
+          export NVM_DIR="\$HOME/.nvm"
+          curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+          source "\$NVM_DIR/nvm.sh"
+          nvm install v{{matrix.node_version}}
+          node -v && npm -v
+        - |
+          curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | bash
+          sudo apt install nodejs
+
 
 steps:
 
