@@ -6,6 +6,8 @@ steps:
       export BUILDKITE_ANALYTICS_TOKEN="$$(buildkite-agent secret get TEST_ENGINE_TEST_SUITE_JENKINS_TO_BUILDKITE)"
       
       echo "--- Install Node.js {{matrix.node_version}}"
+      node -v
+      
       # curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | sudo -E bash -
       # sudo apt install nodejs
 
@@ -22,6 +24,7 @@ steps:
 
       curl https://mise.run | sh
       mise install node@{{matrix.node_version}}
+      node -v
       
       cd app
       npm ci
