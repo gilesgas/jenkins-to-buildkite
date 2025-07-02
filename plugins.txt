@@ -1,4 +1,5 @@
 ansicolor
+build-name-setter
 configuration-as-code
 github-branch-source
 htmlpublisher

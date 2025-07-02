@@ -82,6 +82,8 @@ pipeline {
                     always {
                         archiveArtifacts artifacts: 'app/coverage/**/*'
                         archiveArtifacts artifacts: 'app/dist/**/*'
+
+                        buildDescription("Something something ${NODE_VERSION} maybe")
                     }
                 }
             }
