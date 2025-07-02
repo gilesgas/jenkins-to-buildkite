@@ -1,32 +1,81 @@
 agents:
   queue: "hosted-linux"
 steps:
-  - label: ":nodejs: Node.js {{matrix.node_version}} build"
+
+  - label: "Lint"
+    id: lint
     commands: |
-      export BUILDKITE_ANALYTICS_TOKEN="$$(buildkite-agent secret get TEST_ENGINE_TEST_SUITE_JENKINS_TO_BUILDKITE)"
-      
-      echo "--- Install Node.js {{matrix.node_version}}"
-      node -v
-
-      # curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | sudo -E bash -
-      # sudo apt install nodejs
-
-      export NVM_DIR="\$HOME/.nvm"
-      curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-      source "\$NVM_DIR/nvm.sh"
-      nvm install v{{matrix.node_version}}
-      
-      cd app
+      curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | bash
+      sudo apt install nodejs
       npm ci
       npm run lint
-      npm run test
-      npm run build
-      
+
     matrix:
       setup:
         node_version:
           - 20
           - 22
+
+  - label: "test"
+    id: test
+    commands: |
+      curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | bash
+      sudo apt install nodejs
+      npm ci
+      npm test
+
+    matrix:
+      setup:
+        node_version:
+          - 20
+          - 22
+
+  - label: "Build"
+    id: build   # This is optional, as nothing references it.
+
+    depends_on: 
+      - lint
+      - test
+
+    commands: |
+      curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | bash
+      sudo apt install nodejs
+      npm ci
+      npm run lint
+    
+    matrix:
+      setup:
+        node_version:
+          - 20
+          - 22
+
+
+  # - label: ":nodejs: Node.js {{matrix.node_version}} build"
+  #   commands: |
+  #     export BUILDKITE_ANALYTICS_TOKEN="$$(buildkite-agent secret get TEST_ENGINE_TEST_SUITE_JENKINS_TO_BUILDKITE)"
+      
+  #     echo "--- Install Node.js {{matrix.node_version}}"
+  #     node -v
+
+  #     # curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | sudo -E bash -
+  #     # sudo apt install nodejs
+
+  #     export NVM_DIR="\$HOME/.nvm"
+  #     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+  #     source "\$NVM_DIR/nvm.sh"
+  #     nvm install v{{matrix.node_version}}
+      
+  #     cd app
+  #     npm ci
+  #     npm run lint
+  #     npm run test
+  #     npm run build
+      
+  #   matrix:
+  #     setup:
+  #       node_version:
+  #         - 20
+  #         - 22
     
     artifact_paths:
       - app/coverage/**/* 
