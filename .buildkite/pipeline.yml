@@ -3,14 +3,14 @@ agents:
 
 common:
   install-node: &install-node |
-    # curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | bash
-    # sudo apt install nodejs
+    curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | bash
+    sudo apt install nodejs
 
-    export NVM_DIR="\$HOME/.nvm"
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-    source "\$NVM_DIR/nvm.sh"
-    nvm install v{{matrix.node_version}}
-    node -v && npm -v
+    # export NVM_DIR="\$HOME/.nvm"
+    # curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+    # source "\$NVM_DIR/nvm.sh"
+    # nvm install v{{matrix.node_version}}
+    # node -v && npm -v
 
   matrix: &matrix
     setup:
