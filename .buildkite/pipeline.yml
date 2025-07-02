@@ -9,13 +9,11 @@ steps:
       # curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | sudo -E bash -
       # sudo apt install nodejs
 
-      which node
       node -v
       export NVM_DIR="$$HOME/.nvm"
       curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
       . "$$NVM_DIR/nvm.sh"
-      nvm install v22
-      nvm use v22
+      nvm install v${{matrix.node_version}}
       node -v
       
       cd app
