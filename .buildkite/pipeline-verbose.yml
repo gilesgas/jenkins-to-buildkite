@@ -1,0 +1,42 @@
+steps:
+  - label: ":eslint: Lint (Node {{matrix.node_version}})"
+    id: lint
+    matrix:
+      setup:
+        node_version: [20, 22]
+    commands:
+      - |
+        curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | bash
+        sudo apt install nodejs
+        cd app && npm ci
+      - npm run lint
+
+  - label: ":vitest: Test (Node {{matrix.node_version}})"
+    id: test
+    matrix:
+      setup:
+        node_version: [20, 22]
+    commands:
+      - |
+        curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | bash
+        sudo apt install nodejs
+        cd app && npm ci
+      - npm test
+    artifact_paths:
+      - app/coverage/**/*
+
+  - label: ":wrench: Build (Node {{matrix.node_version}})"
+    matrix:
+      setup:
+        node_version: [20, 22]
+    commands:
+      - |
+        curl -fsSL https://deb.nodesource.com/setup_{{matrix.node_version}}.x | bash
+        sudo apt install nodejs
+        cd app && npm ci
+      - npm run build
+    depends_on: 
+      - lint
+      - test
+    artifact_paths:
+      - app/dist/**/*
