@@ -22,11 +22,11 @@ pipeline {
 
                 // Target a specific agent.
                 agent {
-                    label '${NODE_VERSION}'
+                    label "${NODE_VERSION}"
                 }
         
                 tools {
-                    nodejs '${NODE_VERSION}'
+                    nodejs "${NODE_VERSION}"
                 }
 
                 // Run stages sequentially.
