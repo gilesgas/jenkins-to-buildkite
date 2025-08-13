@@ -8,3 +8,4 @@ nodejs
 role-strategy
 workflow-aggregator
 workflow-multibranch
+pipeline-graph-view
