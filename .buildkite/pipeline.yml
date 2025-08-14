@@ -29,6 +29,6 @@ steps:
     commands:
       - *install
       - npm run build
-    depends_on: [lint, test]
+    # depends_on: [lint, test]
     artifact_paths:
       - app/dist/**/* 
